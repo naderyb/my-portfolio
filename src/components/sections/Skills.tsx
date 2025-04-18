@@ -11,7 +11,6 @@ import {
   FaGit,
   FaPython,
   FaJava,
-  FaTerminal,
 } from "react-icons/fa";
 import { MdFunctions } from "react-icons/md";
 
@@ -26,8 +25,7 @@ import {
 } from "react-icons/si";
 import { GiTeamIdea } from "react-icons/gi";
 import { BsLightningCharge, BsFillPeopleFill } from "react-icons/bs";
-import { MdPsychology, MdOutlineTrackChanges } from "react-icons/md";
-import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
+import { MdPsychology } from "react-icons/md";
 import { TbBulbFilled } from "react-icons/tb";
 
 
@@ -61,7 +59,6 @@ const skills: Record<Group, Skill[]> = {
     { name: "SQL", icon: <span className="text-sm font-bold text-yellow-500">SQL</span> },
     { name: "Java", icon: <FaJava /> },
     { name: "MATLAB", icon: <MdFunctions /> },
-    { name: "PowerShell & Bash", icon: <FaTerminal /> },
   ],
   uiux: [
     { name: "Figma", icon: <FaFigma /> },
@@ -75,9 +72,7 @@ const skills: Record<Group, Skill[]> = {
     { name: "Critical Thinking", icon: <TbBulbFilled /> },
     { name: "Time Management", icon: <BsLightningCharge /> },
     { name: "Leadership", icon: <GiTeamIdea /> },
-    { name: "Conflict Resolution", icon: <HiOutlineChatBubbleLeftRight /> },
-    { name: "Decision Making", icon: <MdOutlineTrackChanges /> },
-  ],
+   ],
 };
 
 export default function Skills() {
