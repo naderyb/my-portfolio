@@ -133,7 +133,7 @@ export default function Skills() {
               {skill.icon}
             </div>
             <div
-              className={`absolute bottom-[-2.3rem] text-center text-xs text-gray-300 transition-opacity duration-300 ${
+              className={`absolute bottom-[-1.5rem] text-center text-xs text-gray-300 transition-opacity duration-300 ${
                 tappedSkill === skill.name
                   ? "opacity-100"
                   : "opacity-0 group-hover:opacity-100"
