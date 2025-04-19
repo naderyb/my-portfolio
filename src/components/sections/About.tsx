@@ -23,7 +23,6 @@ export default function About() {
   }, []);
 
   return (
-    
     <section
       id="about"
       className="relative min-h-screen px-6 py-24 text-white flex flex-col items-center justify-center overflow-hidden"
@@ -41,9 +40,13 @@ export default function About() {
         </h2>
 
         <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-          Je m&apos;appelle <span className="text-red-500 font-semibold">Youb Nader</span>, passionné par la
-          <span className="text-red-500 font-semibold"> cybersécurité</span>. Mon univers tourne autour de
-          la recherche de failles, des systèmes sécurisés et de l&apos;éthique du hacking.
+          Je m&apos;appelle{" "}
+          <span className="text-red-500 font-semibold">Mahmoud Nader Youb</span>
+          , passionné par la
+          <span className="text-red-500 font-semibold">cybersécurité</span>. Mon
+          domaine d&apos;expertise se situe à l&apos;intersection de la
+          cybersécurité et de la technologie. Curieux de nature, je cherche
+          toujours des réponse a des &apos;pourquoi&apos; récurants.
         </p>
       </motion.div>
 
@@ -79,17 +82,11 @@ export default function About() {
         viewport={{ once: true }}
         className="max-w-3xl text-center mt-12 space-y-6 text-gray-400 text-md leading-relaxed"
       >
+        <p>Mon objectif est de devenir un expert en cybersécurité.</p>
         <p>
-          La cybersécurité, c&apos;est plus qu&apos;une passion, c&apos;est mon avenir. Je me spécialise dans les <span className="text-red-400 font-medium">tests d&apos;intrusion</span>, la
-          <span className="text-red-400 font-medium"> cryptographie</span>, et les <span className="text-red-400 font-medium">défis CTF</span>. Chaque vulnérabilité que je trouve me
-          rapproche d&apos;un monde plus sûr et plus sécurisé.
-        </p>
-        <p>
-          Mon objectif est clair: devenir un expert en cybersécurité, maîtriser l&apos;art du hacking éthique et protéger les systèmes contre ceux qui cherchent à les exploiter. 
-        </p>
-        <p>
-          Si vous cherchez un passionné de cybersécurité prêt à relever les défis les plus complexes, vous êtes au bon endroit. C&apos;est un parcours difficile, mais c&apos;est ce qui rend chaque victoire
-          encore plus savoureuse.
+          Si vous recherchez un passionné de cybersécurité prêt à relever les
+          défis complexes, vous êtes au bon endroit. Ce domaine exigeant rend
+          chaque réussite encore plus gratifiante.
         </p>
       </motion.div>
     </section>
