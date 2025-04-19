@@ -21,7 +21,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          Salut, je suis <span className="text-red-500">Youb Nader</span>
+          Hello, je suis <span className="text-red-500">Mahmoud Nader Youb</span>
         </motion.h1>
 
         {/* Typewriter Effect */}
@@ -33,9 +33,10 @@ export default function Hero() {
         >
           <Typewriter
             words={[
-              "Développeur passionné.",
-              "Créatif du web.",
-              "Technophile en mission.",
+              "CTF Player",
+              "Développeur Web",
+              "Cybersecurity Enthusiast",
+              "Toujours en dark mode",
             ]}
             loop={true}
             cursor
@@ -45,15 +46,6 @@ export default function Hero() {
             delaySpeed={1500}
           />
         </motion.p>
-
-        {/* Call to Action Button */}
-        <motion.div
-          className="mt-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-        >
-        </motion.div>
       </motion.div>
     </section>
   );
