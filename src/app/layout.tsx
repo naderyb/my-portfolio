@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body className={`${inter.className} bg-black text-white relative`}>
         {/* 👇 global particles behind everything */}
         <ParticlesBackground />
