@@ -13,7 +13,7 @@ const projects = [
     description: "nrivizi est une plateforme conçue pour simplifier le parcours académique des étudiants en fournissant un accès facile à diverses ressources pour rendre la recherche et l'accès aux matériaux d'étude simples et facile. ",
     image: "/nrivizi.png",
     github: "https://github.com/naderyb/nrivizi",
-    live: "https://nrivizi.netlify.app/https://nrivizi.netlify.app/select_language",
+    live: "https://nrivizi.netlify.app/select_language",
   },
   {
     title: "Event-theta",
