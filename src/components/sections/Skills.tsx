@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import {
   FaHtml5,
@@ -13,7 +14,6 @@ import {
   FaJava,
 } from "react-icons/fa";
 import { MdFunctions } from "react-icons/md";
-
 import {
   SiTailwindcss,
   SiExpress,
@@ -27,7 +27,7 @@ import { GiTeamIdea } from "react-icons/gi";
 import { BsLightningCharge, BsFillPeopleFill } from "react-icons/bs";
 import { MdPsychology } from "react-icons/md";
 import { TbBulbFilled } from "react-icons/tb";
-
+import { motion, AnimatePresence } from "framer-motion";
 
 type Group = "frontend" | "backend" | "uiux" | "programming" | "general";
 
@@ -72,7 +72,7 @@ const skills: Record<Group, Skill[]> = {
     { name: "Critical Thinking", icon: <TbBulbFilled /> },
     { name: "Time Management", icon: <BsLightningCharge /> },
     { name: "Leadership", icon: <GiTeamIdea /> },
-   ],
+  ],
 };
 
 export default function Skills() {
@@ -89,7 +89,7 @@ export default function Skills() {
         Skills
       </h2>
 
-      {/* Group buttons */}
+      {/* Category buttons */}
       <div className="flex justify-center flex-wrap gap-4 mb-10">
         {(
           ["frontend", "backend", "programming", "uiux", "general"] as Group[]
@@ -97,10 +97,10 @@ export default function Skills() {
           <button
             key={group}
             onClick={() => setSelectedGroup(group)}
-            className={`px-5 py-2 rounded-full text-sm font-medium transition duration-300 ${
+            className={`px-5 py-2 rounded-full text-sm font-medium transition duration-300 border border-red-600 ${
               selectedGroup === group
                 ? "bg-red-600 text-white"
-                : "bg-gray-800 hover:bg-red-700"
+                : " text-gray-300 hover:bg-red-700 hover:text-white"
             }`}
           >
             {
@@ -116,29 +116,42 @@ export default function Skills() {
         ))}
       </div>
 
-      {/* Skills Grid */}
-      <div className="flex flex-wrap justify-center gap-8 px-6 max-w-5xl mx-auto">
-        {skills[selectedGroup].map((skill) => (
-          <div
-            key={skill.name}
-            onClick={() => handleTap(skill.name)}
-            className="relative group w-24 h-24 rounded-full flex items-center justify-center border-2 border-red-600 bg-black/60 hover:shadow-[0_0_20px_#d90000] transition duration-300 cursor-pointer"
-          >
-            <div className="text-3xl text-red-500 group-hover:scale-110 transition">
-              {skill.icon}
-            </div>
+      {/* Animated Skills Grid */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selectedGroup}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-wrap justify-center gap-8 px-6 max-w-6xl mx-auto"
+        >
+          {skills[selectedGroup].map((skill, idx) => (
             <div
-              className={`absolute bottom-[-1.5rem] text-center text-xs text-gray-300 transition-opacity duration-300 ${
-                tappedSkill === skill.name
-                  ? "opacity-100"
-                  : "opacity-0 group-hover:opacity-100"
-              }`}
+              key={skill.name}
+              onClick={() => handleTap(skill.name)}
+              className="relative group w-24 h-24 rounded-full flex items-center justify-center border border-red-600 bg-black/60 hover:shadow-[0_0_25px_#d90000] transition duration-300 cursor-pointer"
+              style={{
+                animation: "spin-slow 8s linear infinite",
+                animationDelay: `${idx * 0.1}s`,
+              }}
             >
-              {skill.name}
+              <div className="text-3xl text-red-500 group-hover:scale-110 transition duration-300">
+                {skill.icon}
+              </div>
+              <div
+                className={`absolute bottom-[-1.5rem] text-center text-xs text-gray-300 transition-opacity duration-300 ${
+                  tappedSkill === skill.name
+                    ? "opacity-100"
+                    : "opacity-0 group-hover:opacity-100"
+                }`}
+              >
+                {skill.name}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
     </section>
   );
 }
