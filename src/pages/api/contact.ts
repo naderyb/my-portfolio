@@ -1,20 +1,35 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import nodemailer from 'nodemailer';
+import type { NextApiRequest, NextApiResponse } from "next";
+import nodemailer from "nodemailer";
+import axios from "axios";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  const { name, email, message } = req.body;
+  const { name, email, message, token } = req.body;
 
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: 'Missing required fields' });
+  if (!name || !email || !message || !token) {
+    return res.status(400).json({ error: "Missing required fields or reCAPTCHA token" });
   }
 
+  // 🔐 reCAPTCHA verification
+  try {
+    const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`;
+    const { data: captchaRes } = await axios.post(verifyURL);
+
+    if (!captchaRes.success) {
+      return res.status(400).json({ error: "Failed reCAPTCHA verification" });
+    }
+  } catch (err) {
+    console.error("reCAPTCHA Error:", err);
+    return res.status(500).json({ error: "Failed to verify reCAPTCHA" });
+  }
+
+  // 📧 Email sending
   try {
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -45,11 +60,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           </div>
         </div>
       `,
-    });    
+    });
 
-    return res.status(200).json({ message: 'Email sent successfully!' });
+    return res.status(200).json({ message: "Email sent successfully!" });
   } catch (error) {
-    console.error('Email sending error:', error);
-    return res.status(500).json({ error: 'Something went wrong. Try again later.' });
+    console.error("Email sending error:", error);
+    return res.status(500).json({ error: "Something went wrong. Try again later." });
   }
 }
