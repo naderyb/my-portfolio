@@ -4,11 +4,13 @@ import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import toast, { Toaster } from "react-hot-toast";
+import ReCAPTCHA from "react-google-recaptcha";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   useEffect(() => {
     gsap.from("#contact-form", {
@@ -26,26 +28,33 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const token = await recaptchaRef.current?.executeAsync();
+    recaptchaRef.current?.reset();
+
+    if (!token) {
+      toast.error("Veuillez valider le reCAPTCHA.");
+      return;
+    }
+
     const formData = new FormData(formRef.current!);
     const data = {
       name: formData.get("name"),
       email: formData.get("email"),
       message: formData.get("message"),
+      token,
     };
 
     const response = await fetch("/api/contact", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
 
     if (response.ok) {
-      toast.success("Message sent!");
+      toast.success("Message envoyé !");
       formRef.current?.reset();
     } else {
-      toast.error("Something went wrong. Please try again.");
+      toast.error("Erreur lors de l'envoi du message.");
     }
   };
 
@@ -62,7 +71,6 @@ export default function Contact() {
         className="relative z-10 max-w-3xl mx-auto bg-gradient-to-br from-black/50 to-zinc-900/60 border border-red-700 backdrop-blur-md rounded-xl p-10 shadow-[0_0_30px_rgba(255,0,0,0.2)]"
       >
         <form onSubmit={handleSubmit} ref={formRef} className="space-y-8">
-          {/* Name Field */}
           <div className="flex flex-col space-y-2">
             <label htmlFor="name" className="text-red-400 text-sm font-medium">
               Name
@@ -76,7 +84,6 @@ export default function Contact() {
             />
           </div>
 
-          {/* Email Field */}
           <div className="flex flex-col space-y-2">
             <label htmlFor="email" className="text-red-400 text-sm font-medium">
               Email
@@ -90,7 +97,6 @@ export default function Contact() {
             />
           </div>
 
-          {/* Message Field */}
           <div className="flex flex-col space-y-2">
             <label htmlFor="message" className="text-red-400 text-sm font-medium">
               Message
@@ -104,7 +110,13 @@ export default function Contact() {
             ></textarea>
           </div>
 
-          {/* Submit Button */}
+          {/* reCAPTCHA invisible */}
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            sitekey="6LeL3R0rAAAAAECmbUx76o2fSckGXzjgAq5rS_C-"
+            size="invisible"
+          />
+
           <div className="text-center pt-4">
             <button
               type="submit"
