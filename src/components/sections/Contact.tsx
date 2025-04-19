@@ -113,7 +113,7 @@ export default function Contact() {
           {/* reCAPTCHA invisible */}
           <ReCAPTCHA
             ref={recaptchaRef}
-            sitekey="6LeL3R0rAAAAAECmbUx76o2fSckGXzjgAq5rS_C-"
+            sitekey="6LcT6B0rAAAAACIAVxIWfPfhf_LMMZdFKaVGYiH7"
             size="invisible"
           />
 
