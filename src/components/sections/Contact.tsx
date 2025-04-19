@@ -23,10 +23,30 @@ export default function Contact() {
     });
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent!");
-    formRef.current?.reset();
+
+    const formData = new FormData(formRef.current!);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message"),
+    };
+
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      toast.success("Message sent!");
+      formRef.current?.reset();
+    } else {
+      toast.error("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -80,7 +100,7 @@ export default function Contact() {
               id="message"
               rows={6}
               required
-              className="w-full px-4 py-3  border border-red-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-600 transition duration-300 resize-none"
+              className="w-full px-4 py-3 border border-red-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-600 transition duration-300 resize-none"
             ></textarea>
           </div>
 
