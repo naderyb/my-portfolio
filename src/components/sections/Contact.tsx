@@ -28,38 +28,48 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const token = await recaptchaRef.current?.executeAsync();
-    recaptchaRef.current?.reset();
+    try {
+      const token = recaptchaRef.current?.getValue();
+      recaptchaRef.current?.reset();
 
-    if (!token) {
-      toast.error("Veuillez valider le reCAPTCHA.");
-      return;
-    }
+      if (!token) {
+        toast.error("Veuillez valider le reCAPTCHA.");
+        return;
+      }
 
-    const formData = new FormData(formRef.current!);
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      message: formData.get("message"),
-      token,
-    };
+      const formData = new FormData(formRef.current!);
+      const data = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        message: formData.get("message"),
+        token,
+      };
 
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    if (response.ok) {
-      toast.success("Message envoyé !");
-      formRef.current?.reset();
-    } else {
-      toast.error("Erreur lors de l'envoi du message.");
+      if (response.ok) {
+        toast.success("Message envoyé !");
+        formRef.current?.reset();
+      } else {
+        const errorText = await response.text();
+        console.error("Erreur API :", response.status, errorText);
+        toast.error("Erreur lors de l'envoi du message.");
+      }
+    } catch (error) {
+      console.error("Erreur inattendue :", error);
+      toast.error("Erreur inattendue lors de l'envoi.");
     }
   };
 
   return (
-    <section id="contact" className="relative py-24 px-4 text-white overflow-hidden">
+    <section
+      id="contact"
+      className="relative py-24 px-4 text-white overflow-hidden"
+    >
       <Toaster />
 
       <h2 className="relative z-10 text-center text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-900 text-5xl font-extrabold mb-12">
@@ -98,7 +108,10 @@ export default function Contact() {
           </div>
 
           <div className="flex flex-col space-y-2">
-            <label htmlFor="message" className="text-red-400 text-sm font-medium">
+            <label
+              htmlFor="message"
+              className="text-red-400 text-sm font-medium"
+            >
               Message
             </label>
             <textarea
@@ -114,7 +127,7 @@ export default function Contact() {
           <ReCAPTCHA
             ref={recaptchaRef}
             sitekey="6LcT6B0rAAAAACIAVxIWfPfhf_LMMZdFKaVGYiH7"
-            size="invisible"
+            size="normal"
           />
 
           <div className="text-center pt-4">
