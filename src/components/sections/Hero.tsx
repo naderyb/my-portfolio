@@ -6,16 +6,17 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center text-center px-6 overflow-hidden animated-grid"
+      className="relative min-h-screen flex items-center justify-center text-center px-6 overflow-hidden"
     >
       <motion.div
         initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="space-y-6"
+        className="space-y-8 max-w-3xl mx-auto z-10"
       >
+        {/* Main Heading */}
         <motion.h1
-          className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight"
+          className="text-5xl md:text-7xl font-extrabold leading-tight text-white tracking-tight"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
@@ -23,7 +24,13 @@ export default function Hero() {
           Salut, je suis <span className="text-red-500">Youb Nader</span>
         </motion.h1>
 
-        <motion.p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto">
+        {/* Typewriter Effect */}
+        <motion.p
+          className="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+        >
           <Typewriter
             words={[
               "Développeur passionné.",
@@ -39,18 +46,13 @@ export default function Hero() {
           />
         </motion.p>
 
+        {/* Call to Action Button */}
         <motion.div
-          className="mt-6"
+          className="mt-8"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
-          <a
-            href="#about"
-            className="inline-block px-6 py-3 text-sm md:text-base bg-red-500 text-white font-semibold rounded-full hover:scale-105 hover:shadow-red-500/40 hover:shadow-lg transition duration-300 relative z-10"
-          >
-            Voir mes projets
-          </a>
         </motion.div>
       </motion.div>
     </section>
