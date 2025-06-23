@@ -23,6 +23,13 @@ const projects = [
     live: "https://events-fe-theta.vercel.app/",
   },
   {
+    title: "PWD Cracker",
+    description: "Un projet du module Théorie des graphes, qui permet de cracker des mot de passe selon la contrainte demandée par l'exercice. il utilise un algorithme de backtracking pour générer les mots de passe possibles et les tester contre une liste de mots de passe.",
+    image: "/pwd-cracker.png",
+    github: "https://github.com/naderyb/pwd_cracker",
+    live: "https://pwd-cracker.netlify.app/",
+  },
+  {
     title: "news-detective",
     description: "Un jeu de trivia basé sur les actualités, où les utilisateurs peuvent tester leurs connaissances sur les événements et gagner des points.",
     image: "/news-detective.png",
