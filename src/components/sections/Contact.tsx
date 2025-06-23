@@ -79,7 +79,7 @@ export default function Contact() {
 
       {/* Overlay loading */}
       {loading && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-70 flex flex-col items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex flex-col items-center justify-center">
           <svg
             className="animate-spin h-12 w-12 text-red-500 mb-4"
             xmlns="http://www.w3.org/2000/svg"
