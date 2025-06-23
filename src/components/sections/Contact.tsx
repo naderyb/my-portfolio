@@ -55,16 +55,16 @@ export default function Contact() {
       });
 
       if (response.ok) {
-        toast.success("✅ Message envoyé !");
+        toast.success("Message envoyé !");
         formRef.current?.reset();
       } else {
         const errorText = await response.text();
         console.error("Erreur API :", response.status, errorText);
-        toast.error("❌ Erreur lors de l'envoi du message.");
+        toast.error("Erreur lors de l'envoi du message.");
       }
     } catch (error) {
       console.error("Erreur inattendue :", error);
-      toast.error("❌ Erreur inattendue lors de l'envoi.");
+      toast.error("Erreur inattendue lors de l'envoi.");
     } finally {
       setLoading(false);
     }
