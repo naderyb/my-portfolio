@@ -36,6 +36,13 @@ const projects = [
     github: "https://github.com/naderyb/game1",
     live: "https://news-detective.vercel.app",
   },
+  {
+    title: "Nexus club website",
+    description: "Le site officiel du Nexus club, un club étudiant que j'ai créé, dédiée à la promotion de la technologie et de l'innovation. Le site présente les événements et les projets.",
+    image: "/nexus.png",
+    github: "https://github.com/naderyb/nexus-club",
+    live: "https://nexus-club-zeta.vercel.app/",
+  }
 ];
 
 export default function Projects() {
